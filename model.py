@@ -134,4 +134,33 @@ def A_Star(x,y,Board,Goals):
                 parent[i][j]=(x,y)
     return [(-1,-1)]
 
+def greed(x,y,Board,Goals):
+    
+    
+    fronter=[(GetHuristic(x,y,Goals),x,y)]
+    isvisited=[[1]*12 for i in range(12)]
+    isvisited[x][y]=0
+    ans=[]
+    while len(fronter):
+
+        fronter.sort()
+        cost,x,y=fronter.pop(0)
+        if (x,y) in Goals:
+            ans= Path(x,y,parent)
+            break
+
+        neighbours=GetNeighbours(x,y)
+        for i,j in neighbours:
+            if isvisited[i][j] and Board[i][j]!=-1:
+                isvisited[i][j]=0
+                fronter.append((GetHuristic(i,j,Goals),i,j))
+                parent[i][j]=(x,y)
+    
+    for i in range(len(ans)):
+        x,y=ans[i]
+        if Board[x][y]<=i:
+            return[(-1,-1)]
+    
+    return ans
+
 
