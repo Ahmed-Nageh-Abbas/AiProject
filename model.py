@@ -114,3 +114,24 @@ def UCS(x,y,Board,Goals):
                 parent[i][j]=(x,y)
     return [(-1,-1)]
 
+
+def A_Star(x,y,Board,Goals):
+    
+    Board[x][y]=0
+    fronter=[(GetHuristic(x,y,Goals),x,y)]
+    while len(fronter):
+        fronter.sort()
+        cost,x,y=fronter.pop(0)
+        if (x,y) in Goals:
+            return Path(x,y,parent)
+        cost-=GetHuristic(x,y,Goals)
+
+        neighbours=GetNeighbours(x,y)
+        for i,j in neighbours:
+            if Board[i][j]>cost+1:
+                Board[i][j]=cost+1
+                fronter.append((cost+1+GetHuristic(i,j,Goals),i,j))
+                parent[i][j]=(x,y)
+    return [(-1,-1)]
+
+
