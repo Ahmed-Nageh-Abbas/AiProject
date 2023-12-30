@@ -96,3 +96,21 @@ def solve(Id,algorithm=1):
         return A_Star(StartPoint[0],StartPoint[1],Board,Goals)
     else:
         return greed(StartPoint[0],StartPoint[1],Board,Goals)
+
+def UCS(x,y,Board,Goals):
+    
+    Board[x][y]=0
+    fronter=[(0,x,y)]
+    while len(fronter):
+        fronter.sort()
+        cost,x,y=fronter.pop(0)
+        if (x,y) in Goals:
+            return Path(x,y,parent)
+        neighbours=GetNeighbours(x,y)
+        for i,j in neighbours:
+            if Board[i][j]>cost+1:
+                Board[i][j]=cost+1
+                fronter.append((cost+1,i,j))
+                parent[i][j]=(x,y)
+    return [(-1,-1)]
+
