@@ -97,6 +97,24 @@ def solve(Id,algorithm=1):
     else:
         return greed(StartPoint[0],StartPoint[1],Board,Goals)
 
+def BFS(x,y,Board,Goals):
+    fronter=deque()
+    
+    Board[x][y]=0
+    fronter.append((x,y,0))
+    while len(fronter):
+        x,y,cost=fronter.popleft()
+        if (x,y) in Goals:
+            return Path(x,y,parent)
+        neighbours=GetNeighbours(x,y)
+        for i,j in neighbours:
+            if Board[i][j]>cost+1:
+                Board[i][j]=cost+1
+                fronter.append((i,j,cost+1))
+                parent[i][j]=(x,y)
+    return [(-1,-1)]
+
+
 def UCS(x,y,Board,Goals):
     
     Board[x][y]=0
