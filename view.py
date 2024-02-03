@@ -244,11 +244,10 @@ def form6(state,Admin):
 
                 if event.type == pygame.KEYDOWN:
                     k = event.key
-                    key_pressed += 1
-                    if k == pygame.K_LEFT: p_left, p_top = -1, 0
-                    if k == pygame.K_RIGHT: p_left, p_top = 1, 0
-                    if k == pygame.K_UP: p_left, p_top = 0, -1  
-                    if k == pygame.K_DOWN: p_left, p_top = 0, 1 
+                    if k == pygame.K_LEFT: p_left, p_top = -1, 0; key_pressed += 1
+                    if k == pygame.K_RIGHT: p_left, p_top = 1, 0; key_pressed += 1
+                    if k == pygame.K_UP: p_left, p_top = 0, -1  ; key_pressed += 1
+                    if k == pygame.K_DOWN: p_left, p_top = 0, 1 ; key_pressed += 1
                     if key_pressed == 1:
                         p_x += p_top; p_y += p_left
                         if p_x > 0 and p_x <= 10 and p_y > 0 and p_y <= 10 and state[p_x-1][p_y-1] != '#':
@@ -271,8 +270,8 @@ def form6(state,Admin):
 
                 if event.type == pygame.KEYUP:
                     k = event.key
-                    key_pressed -= 1
                     if k == pygame.K_LEFT or k == pygame.K_RIGHT or k == pygame.K_UP or k == pygame.K_DOWN:
+                        key_pressed -= 1
                         if state[p_x-1][p_y-1] == 'E':
                             GameState = 2
                         if state[p_x-1][p_y-1] == 'C' or state[p_x-1][p_y-1] == 'M':
