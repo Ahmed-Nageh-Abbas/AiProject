@@ -97,6 +97,23 @@ def solve(Id,algorithm=1):
     else:
         return greed(StartPoint[0],StartPoint[1],Board,Goals)
 
+def DFS(x,y,Board,Goals):
+    Board[x][y]=0
+    stack=deque()
+    stack.append((x,y,0))
+    while len(stack):
+        x,y,cost=stack.pop()
+        if (x,y) in Goals:
+            return Path(x,y,parent)
+        neighbours=GetNeighbours(x,y)
+        for i,j in neighbours:
+            if Board[i][j]>cost+1:
+                Board[i][j]=cost+1
+                stack.append((i,j,cost+1))
+                parent[i][j]=(x,y)
+    return [(-1,-1)]
+
+
 def BFS(x,y,Board,Goals):
     fronter=deque()
     
